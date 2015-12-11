@@ -1,0 +1,11 @@
+.table-header{
+	background-color:#eee;
+}
+
+td[colspan]{
+	background-color:#847849;
+}
+
+[data-ng-click], [ng-click]{
+	cursor:pointer;
+}
