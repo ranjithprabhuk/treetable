@@ -22,19 +22,24 @@ $scope.data=[
 $scope.openTable=function(){
 	alert('1');
 };
+		  $scope.makeClick=function(){
+			alert('12');
+		  };
+}]);
 
-}]).directive('treeTable', function () {
+
+
+app.directive('treeTable', function ($compile) {
     return {
         restrict: 'A',
         scope: {
             data: '=',
+
         },
         link: function (scope, element, attributes) {
 		var data=scope.data;
         scope.table =  '';
-			function openTable(){
-				alert('1');
-			};
+var n=1;
 
 			function buildTable(tableData){
 				var row='<table class="table table-bordered">';
@@ -50,7 +55,7 @@ $scope.openTable=function(){
 					row+='</thead><tbody>';
 					}
 					if(i==0){
-					row+='<tr data-ng-click="openTable();" data-ng-show="false">';
+					row+='<tr  ng-click="makeClick()">';
 					for(x in tableData[i]){
 						if(x!="data"){
 							row+='<td>'+ tableData[i][x] +'</td>';
@@ -59,7 +64,7 @@ $scope.openTable=function(){
 					row+='</tr>';
 					}
 					else{
-						row+='<tr>';
+						row+='<tr ng-click="makeClick()">';
 					for(x in tableData[i]){
 						if(x!="data"){
 							row+='<td>'+ tableData[i][x] +'</td>';
@@ -70,9 +75,14 @@ $scope.openTable=function(){
 					scope.table+=row;
 					row='';
 					if(angular.isDefined(tableData[i].data) && tableData[i].data.length>0){
-						var colspanValue=Object.keys(tableData[i]).length-1;
-						scope.table+='<tr><td colspan='+colspanValue+'>';
+						console.log("before>>>",scope.table);
+						scope.table = scope.table.slice(0,scope.table.length-10);
+						console.log("after>>>",scope.table);
+						scope.table+='<span class="fa fa-chevron-circle-down pull-right"></span></td></tr>';
+						var colspanValue=Object.keys(tableData[i]).length;
+						scope.table+='<tr id=row><td colspan='+colspanValue+'>';
 						var temp=i;
+						n++;
 						buildTable(tableData[i].data);
 						scope.table+='</td></tr>';
 						i=temp;
@@ -83,8 +93,26 @@ $scope.openTable=function(){
 				if(data.length>0){
 					buildTable(data);
 				}
-			element.html(scope.table);
-			console.log(element[0]);
+				        var elmnt = $compile(scope.table)( scope );
+        
+          element.append( elmnt );
+		  scope.makeClick=function(){
+			$('tr').on('click',function(event){
+				console.log('1111');
+				var nextNode = $(this).next();
+				if(nextNode.length){
+					var text=$(this).next().html();
+					if(text.indexOf('colspan')> -1){
+						$(this).next().toggle();
+						$(this).children().children().toggleClass("fa-chevron-circle-down");
+						$(this).children().children().toggleClass("fa-chevron-circle-up");
+					}
+				}
+				//event.stopPropagation();
+			});
+		  };
+
         }
     }
 });
+
