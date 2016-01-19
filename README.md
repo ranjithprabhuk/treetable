@@ -5,7 +5,7 @@ Just pass your json data to the directive and build your table in DOM.
 
 * [Demo] (http://ranjithprabhu.in/treetable)*
 
-* [Download Source]  (https://github.com/ranjithprabhuk/Angular-Bootstrap-Dashboard/archive/master.zip)*
+* [Download Source]  (https://github.com/ranjithprabhuk/treetable/archive/master.zip)*
 
 ## Usage
 
