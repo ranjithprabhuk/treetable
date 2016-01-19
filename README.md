@@ -12,13 +12,13 @@ Just pass your json data to the directive and build your table in DOM.
 * Include the follwing directive in your angular application
 
 ```
-app.directive('treeTable', function ($compile) {
-	return {
-		restrict: 'A',
-		scope: {
-			data: '=',
+	app.directive('treeTable', function ($compile) {
+		return {
+			restrict: 'A',
+			scope: {
+				data: '=',
 
-		},
+			},
 		link: function (scope, element, attributes) {
 		var data=scope.data;
 		scope.table =  '';
