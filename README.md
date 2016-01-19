@@ -132,8 +132,28 @@ Just pass your json data to the directive and build your table in DOM.
 ```		
 	For the nested tables, pass the values inside the data array in each object.
 
-	
+* If required use the following directive to highlight the cell value
 
+```
+	app.directive('cellHighlighter', function ($compile) {
+		return {
+			restrict: 'A',
+			scope: {
+				value: '=',
+			},
+			link: function (scope, element, attributes) {
+				if(scope.value>4454545454){
+					element.addClass('bg-danger');
+				}
+		}
+		}
+	});
+```
+    To hightlight the cell add any css class in the line,
+	```
+	element.addClass('bg-danger');
+	```
+	
 ## Features
 * Easy to build the table
 * Dynamic building of nested tables
