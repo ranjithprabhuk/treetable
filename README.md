@@ -3,9 +3,9 @@ Just pass your json data to the directive and build your table in DOM.
 
 ## DEMO
 
-* [Demo] (http://ranjithprabhu.in/treetable)*
+* [Demo] (http://ranjithprabhu.in/treetable)
 
-* [Download Source]  (https://github.com/ranjithprabhuk/treetable/archive/master.zip)*
+* [Download Source]  (https://github.com/ranjithprabhuk/treetable/archive/master.zip)
 
 ## Usage
 
