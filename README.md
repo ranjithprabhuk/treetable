@@ -109,7 +109,25 @@ app.directive('treeTable', function ($compile) {
 	<div tree-table data="data">
 	</div>
 	
-* Now include the directive in your DOM to generate the table
+* Remember to pass the JSON in data. 
+
+    Eg: $scope.data=[
+		{"First_Name": "Root","Last_Name":"More","Phone":4454545454,
+		 "data":[
+		 {"First_Name": "Root","Last_Name":"More","Phone":4454545454,"data":[]},
+		 {"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		 {"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656,"data":[
+		 {"First_Name": "Root","Last_Name":"More","Phone":4454545454,"data":[]},
+		 {"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		 {"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989}]},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989}]},
+		{"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		{"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989},
+		];
+		
+	For the nested tables, pass the values inside the data array in each object.
 
 	
 
