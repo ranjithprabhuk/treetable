@@ -5,19 +5,19 @@ app.controller('loginController', ['$http', '$scope', '$rootScope', function ($h
 var vm=this;
 
 $scope.data=[
-		{"FirstName": "Root","LastName":"More","Phone":"4454545454",
+		{"First_Name": "Root","Last_Name":"More","Phone":4454545454,
 		 "data":[
-		 {"FirstName": "Root","LastName":"More","Phone":"4454545454","data":[]},
-		 {"FirstName": "Andy","LastName":"Murray","Phone":"121212121"},
-		 {"FirstName": "Rafael","LastName":"Nadal","Phone":"6565656656","data":[
-		 {"FirstName": "Root","LastName":"More","Phone":"4454545454","data":[]},
-		 {"FirstName": "Andy","LastName":"Murray","Phone":"121212121"},
-		 {"FirstName": "Rafael","LastName":"Nadal","Phone":"6565656656"},
-		{"FirstName": "Ranjith","LastName":"Prabhu","Phone":"98989898989"}]},
-		{"FirstName": "Ranjith","LastName":"Prabhu","Phone":"98989898989"}]},
-		{"FirstName": "Andy","LastName":"Murray","Phone":"121212121"},
-		{"FirstName": "Rafael","LastName":"Nadal","Phone":"6565656656"},
-		{"FirstName": "Ranjith","LastName":"Prabhu","Phone":"98989898989"},
+		 {"First_Name": "Root","Last_Name":"More","Phone":4454545454,"data":[]},
+		 {"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		 {"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656,"data":[
+		 {"First_Name": "Root","Last_Name":"More","Phone":4454545454,"data":[]},
+		 {"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		 {"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989}]},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989}]},
+		{"First_Name": "Andy","Last_Name":"Murray","Phone":121212121},
+		{"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656},
+		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989},
 		];
 $scope.openTable=function(){
 	alert('1');
@@ -47,31 +47,36 @@ var n=1;
 					if(i==0){
 						row+='<thead class="table-header">';
 						for(x in tableData[i]){
-						if(x!="data"){
+							console.log(x,x.indexOf('_'));
+						if(x!="data" && x.indexOf('_') == -1){
 							row+='<td><strong>'+ x +'</strong></td>';
+						}
+						else if(x!="data" && x.indexOf('_') >-1){
+							var header=x.split('_'),
+								j=0;
+							row+='<td><strong>';
+							for(j=0;j<header.length;j++){
+								row+= header[j] +' ';
+							}
+							row+='</strong></td>';
 						}
 					}
 					
 					row+='</thead><tbody>';
 					}
-					if(i==0){
-					row+='<tr  ng-click="makeClick()">';
-					for(x in tableData[i]){
-						if(x!="data"){
-							row+='<td>'+ tableData[i][x] +'</td>';
-						}
+						row+='<tr ng-Mouseover="makeClick()">';
+						for(x in tableData[i]){
+							if(x!="data"){
+								console.log(typeof tableData[i][x]);
+								if(typeof tableData[i][x]=='number')
+									row+='<td cell-highlighter value='+tableData[i][x]+'>';
+								else
+									row+='<td>';
+								row+=tableData[i][x] +'</td>';
+							}
 					}
 					row+='</tr>';
-					}
-					else{
-						row+='<tr ng-click="makeClick()">';
-					for(x in tableData[i]){
-						if(x!="data"){
-							row+='<td>'+ tableData[i][x] +'</td>';
-						}
-					}
-					row+='</tr>';
-					}
+
 					scope.table+=row;
 					row='';
 					if(angular.isDefined(tableData[i].data) && tableData[i].data.length>0){
@@ -96,7 +101,7 @@ var n=1;
 				        var elmnt = $compile(scope.table)( scope );
         
           element.append( elmnt );
-		  scope.makeClick=function(){
+		  scope.makeClick=function(value){
 			$('tr').on('click',function(event){
 				console.log('1111');
 				var nextNode = $(this).next();
@@ -114,5 +119,20 @@ var n=1;
 
         }
     }
+});
+
+
+app.directive('cellHighlighter', function ($compile) {
+    return {
+        restrict: 'A',
+        scope: {
+            value: '=',
+        },
+        link: function (scope, element, attributes) {
+			if(scope.value>4454545454){
+				element.addClass('bg-danger');
+			}
+    }
+	}
 });
 
