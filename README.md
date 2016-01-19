@@ -11,16 +11,17 @@ Just pass your json data to the directive and build your table in DOM.
 
 * Include the follwing directive in your angular application
 
+```
 app.directive('treeTable', function ($compile) {
-    return {
-        restrict: 'A',
-        scope: {
-            data: '=',
+	return {
+		restrict: 'A',
+		scope: {
+			data: '=',
 
-        },
-        link: function (scope, element, attributes) {
+		},
+		link: function (scope, element, attributes) {
 		var data=scope.data;
-        scope.table =  '';
+		scope.table =  '';
 			var n=1;
 
 			function buildTable(tableData){
@@ -80,9 +81,9 @@ app.directive('treeTable', function ($compile) {
 				if(data.length>0){
 					buildTable(data);
 				}
-				        var elmnt = $compile(scope.table)( scope );
-        
-          element.append( elmnt );
+						var elmnt = $compile(scope.table)( scope );
+		
+		  element.append( elmnt );
 		  scope.makeClick=function(value){
 			$('tr').on('click',function(event){
 				console.log('1111');
@@ -99,18 +100,20 @@ app.directive('treeTable', function ($compile) {
 			});
 		  };
 
-        }
-    }
+		}
+	}
 });
-
+```
 
 * Now include the directive in your DOM to generate the table
 
-	<div tree-table data="data">
-	</div>
+```
+<div tree-table data="data">
+</div>
+```
 	
 * Remember to pass the JSON in data. 
-
+```
     Eg: $scope.data=[
 		{"First_Name": "Root","Last_Name":"More","Phone":4454545454,
 		 "data":[
@@ -126,7 +129,7 @@ app.directive('treeTable', function ($compile) {
 		{"First_Name": "Rafael","Last_Name":"Nadal","Phone":6565656656},
 		{"First_Name": "Ranjith","Last_Name":"Prabhu","Phone":98989898989},
 		];
-		
+```		
 	For the nested tables, pass the values inside the data array in each object.
 
 	
